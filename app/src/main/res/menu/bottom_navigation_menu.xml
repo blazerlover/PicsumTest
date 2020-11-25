@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_menu__pictures_fragment"
+        android:icon="@drawable/ic_bottom_nav_menu_pictures"
+        android:title="@string/pictures" />
+
+    <item
+        android:id="@+id/bottom_nav_menu__authorization_fragment"
+        android:icon="@drawable/ic_bottom_nav_menu_auth"
+        android:title="@string/authorization" />
+
+</menu>
