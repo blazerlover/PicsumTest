@@ -13,13 +13,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var activeFragment: Fragment
-    private val picturesFragment = PicturesFragment()
-    private val authorizationFragment = AuthorizationFragment()
+    private var picturesFragment = PicturesFragment()
+    private var authorizationFragment = AuthorizationFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        firstTransaction(savedInstanceState)
+        firstTransaction()
         bottomNavigationView = findViewById(R.id.main_activity__bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             navigate(it)
@@ -28,24 +28,21 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = R.id.bottom_nav_menu__pictures_fragment
     }
 
-    private fun firstTransaction(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_activity__fragment_container, authorizationFragment, PICTURE_FRAGMENT_TAG)
-                    .hide(authorizationFragment)
-                    .commit()
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_activity__fragment_container, picturesFragment, AUTHORIZATION_FRAGMENT_TAG)
-                    .commit()
-            activeFragment = picturesFragment
+    private fun firstTransaction() {
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.main_activity__fragment_container, authorizationFragment, PICTURE_FRAGMENT_TAG)
+                .hide(authorizationFragment)
+                .commit()
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.main_activity__fragment_container, picturesFragment, AUTHORIZATION_FRAGMENT_TAG)
+                .commit()
+        activeFragment = picturesFragment
+        activeFragment = if (picturesFragment.isVisible) {
+            picturesFragment
         } else {
-            activeFragment = if (picturesFragment.isVisible) {
-                picturesFragment
-            } else {
-                authorizationFragment
-            }
+            authorizationFragment
         }
     }
 

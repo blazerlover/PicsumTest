@@ -23,11 +23,7 @@ class PictureViewModel @Inject constructor(
     private val lPicturesLiveData = MutableLiveData<PicturesViewState>()
     val picturesLiveData get() = lPicturesLiveData
 
-    private val lAllPicturesLiveData = MutableLiveData<PicturesViewState>()
-    val allPicturesLiveData get() = lAllPicturesLiveData
-
     private val picturesRowBundle = mutableListOf<PictureRow>()
-    private val picturesRow = mutableListOf<PictureRow>()
 
     fun getPictures(page: Int) {
         fetching()
@@ -41,7 +37,6 @@ class PictureViewModel @Inject constructor(
                             for (pic in pictures) {
                                 PictureRow(pic.download_url, pic.author).run {
                                     picturesRowBundle.add(this)
-                                    picturesRow.add(this)
                                 }
                             }
                         }
@@ -53,11 +48,6 @@ class PictureViewModel @Inject constructor(
                     notFetched(it.message!!)
                 })
         picturesRowBundle.clear()
-    }
-
-    fun getAllPictures() {
-        lAllPicturesLiveData.postValue(PicturesViewState(Fetching, picturesRow))
-        lAllPicturesLiveData.postValue(PicturesViewState(Fetched, picturesRow))
     }
 
     private fun fetching() {

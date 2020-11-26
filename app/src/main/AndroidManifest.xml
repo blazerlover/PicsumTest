@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PicsumTest">
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

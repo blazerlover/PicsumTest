@@ -43,28 +43,11 @@ class PicturesFragment : Fragment() {
 
         (activity!!.application as App).getComponent().injectPictureFragment(this)
         pictureViewModel = ViewModelProvider(this, pictureViewModelFactory).get(PictureViewModel::class.java)
-        if (savedInstanceState != null) {
-            saveState(savedInstanceState)
-            pictureViewModel.getAllPictures()
-            pictureViewModel.allPicturesLiveData.observe(this) {
-                updateData(it.pictures)
-            }
-
-        } else {
-            pictureViewModel.getPictures(currentPage + 1)
-        }
         pictureViewModel.picturesLiveData.observe(this) {
             updateDisplayState(it)
         }
+        pictureViewModel.getPictures(currentPage + 1)
         picturesAdapter = PicturesAdapter(mutableListOf())
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt("startPage", startPage)
-        outState.putInt("totalPage", totalPage)
-        outState.putInt("currentPage", currentPage)
-        outState.putBoolean("isLoading", isLoading)
-        outState.putBoolean("isLastPage", isLastPage)
     }
 
     override fun onCreateView(
@@ -134,14 +117,6 @@ class PicturesFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun saveState(savedInstanceState: Bundle) {
-        startPage = savedInstanceState.getInt("startPage", startPage)
-        totalPage = savedInstanceState.getInt("totalPage", totalPage)
-        currentPage = savedInstanceState.getInt("currentPage", currentPage)
-        isLoading = savedInstanceState.getBoolean("isLoading")
-        isLastPage = savedInstanceState.getBoolean("isLastPage")
     }
 
     private fun showLoading() {
