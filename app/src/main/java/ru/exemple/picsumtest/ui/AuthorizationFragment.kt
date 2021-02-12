@@ -48,7 +48,7 @@ class AuthorizationFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         rootView = inflater.inflate(R.layout.fragment_authorization, container, false)
         val etLogin: EditText = rootView.findViewById(R.id.fragment_authorization__etLogin)
         etPassword = rootView.findViewById(R.id.fragment_authorization__etPassword)
@@ -71,16 +71,16 @@ class AuthorizationFragment : Fragment() {
 
     private fun updateDisplayState(weatherViewState: WeatherViewState) {
         when (weatherViewState.fetchStatus) {
-            Fetching -> showLoading()
-            Fetched -> {
+            is Fetching -> showLoading()
+            is Fetched -> {
                 hideLoading()
                 updateData(weatherViewState.weather!!)
             }
-            NotFetched -> {
+            is NotFetched -> {
                 hideLoading()
                 showUnsuccessfulMessage()
             }
-            InvalidPassword -> passwordInvalid()
+            is InvalidPassword -> passwordInvalid()
         }
     }
 

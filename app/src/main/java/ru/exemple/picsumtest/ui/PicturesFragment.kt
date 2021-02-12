@@ -53,7 +53,7 @@ class PicturesFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         rootView = inflater.inflate(R.layout.fragment_pictures, container, false)
         recyclerView = rootView.findViewById(R.id.fragment_picture__rvPictures)
         pbFirstLoading = rootView.findViewById(R.id.fragment_picture__pbFirstLoading)
@@ -89,29 +89,29 @@ class PicturesFragment : Fragment() {
     private fun updateDisplayState(picturesViewState: PicturesViewState) {
         if (currentPage > 0) {
             when (picturesViewState.fetchStatus) {
-                Fetching -> {
+                is Fetching -> {
                     picturesAdapter.addLoading()
                     Log.d("TAG", "Fetching")
                 }
-                Fetched -> {
+                is Fetched -> {
                     isLoading = false
                     picturesAdapter.removeLoading()
                     picturesAdapter.addNextPagePictures(picturesViewState.pictures)
                     Log.d("TAG", "Fetched")
                 }
-                NotFetched -> {
+                is NotFetched -> {
                     hideLoading()
                     showUnsuccessfulMessage()
                 }
             }
         } else {
             when (picturesViewState.fetchStatus) {
-                Fetching -> showLoading()
-                Fetched -> {
+                is Fetching -> showLoading()
+                is Fetched -> {
                     hideLoading()
                     updateData(picturesViewState.pictures)
                 }
-                NotFetched -> {
+                is NotFetched -> {
                     hideLoading()
                     showUnsuccessfulMessage()
                 }

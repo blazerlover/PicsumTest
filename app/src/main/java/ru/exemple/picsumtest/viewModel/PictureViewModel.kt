@@ -1,7 +1,6 @@
 package ru.exemple.picsumtest.viewModel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -59,10 +58,7 @@ class PictureViewModel @Inject constructor(
     }
 
     private fun notFetched(message: String) {
-        val notFetched = NotFetched.also {
-            it.message = message
-        }
-        lPicturesLiveData.postValue(PicturesViewState(notFetched, picturesRowBundle))
+        lPicturesLiveData.postValue(PicturesViewState(NotFetched(message), picturesRowBundle))
     }
 
     @Suppress("UNCHECKED_CAST")

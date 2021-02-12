@@ -1,6 +1,5 @@
 package ru.exemple.picsumtest.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,7 +90,5 @@ class PicturesAdapter(private val pictures: MutableList<PictureRow>) :
         }
     }
 
-    inner class PictureAdapterViewHolderLoading(itemView: View) : BaseVH(itemView) {
-
-    }
+    inner class PictureAdapterViewHolderLoading(itemView: View) : BaseVH(itemView)
 }

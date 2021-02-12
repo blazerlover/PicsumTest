@@ -72,10 +72,7 @@ class AuthorizationViewModel @Inject constructor(var retrofitService: RetrofitSe
     }
 
     private fun notFetched(message: String) {
-        val notFetched = NotFetched.also {
-            it.message = message
-        }
-        lWeatherLiveData.postValue(WeatherViewState(notFetched, weather))
+        lWeatherLiveData.postValue(WeatherViewState(NotFetched(message), weather))
     }
 
     private fun passwordInvalid() {
